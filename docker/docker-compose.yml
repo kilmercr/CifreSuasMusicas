@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      - ./sqls/create_tables_user_role.sql:/docker-entrypoint-initdb.d/create_tables_user_role.sql  
+      # copy the sql script to insert values into tables
+      - ./sqls/insert_into_tables_user_role.sql:/docker-entrypoint-initdb.d/insert_into_tables_user_role.sql  
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgroot123
+      - POSTGRES_DB=cifras
+      - TZ=America/Sao_Paulo
+      - PGTZ=America/Sao_Paulo
+      - PGDATESTYLE=ISO, DMY
+    ports:
+      - '5432:5432'
