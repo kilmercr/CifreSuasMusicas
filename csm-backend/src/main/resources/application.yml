@@ -1,4 +1,3 @@
-
 --- #Start - Server
 server:
   port: 8090
@@ -6,12 +5,8 @@ server:
 
 --- # Start - Spring
 spring:
-#  main:
-#    banner-mode: log
-
-  output:
-    ansi:
-      enabled: DETECT
+  #main:
+  #  banner-mode: log
 
   datasource:
     url: jdbc:postgresql://localhost:5432/cifras
@@ -19,10 +14,8 @@ spring:
     password: pgroot123
     driverClassName: org.postgresql.Driver
 
-#  flyway:
-#    baseline-on-migrate: true
-#    fail-on-missing-locations: false
-#    locations: classpath:/db/migration
+  #flyway:
+  #  locations: classpath:db/migration,db/specific/postgresql
 
   jpa:
     #open-in-view: false
@@ -33,7 +26,7 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
-      hibernate.format_sql : true
+      hibernate.format_sql: true
 ... #End - Spring
 
 --- #Start - Logging with Logback's Library
@@ -54,7 +47,7 @@ logging:
 
   level:
     root: warn
-    br.com.cifresuasmusicas: info
+    br.com.br.com.cifresuasmusicas: info
     org.springframework: error
     org.springframework.boot.SpringApplication: info
     org.hibernate: error
