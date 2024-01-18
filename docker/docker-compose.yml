@@ -9,7 +9,7 @@ services:
       # copy the sql script to create tables
       - ./sqls/create_tables_user_role.sql:/docker-entrypoint-initdb.d/create_tables_user_role.sql  
       # copy the sql script to insert values into tables
-      - ./sqls/insert_into_tables_user_role.sql:/docker-entrypoint-initdb.d/insert_into_tables_user_role.sql  
+      #- ./sqls/insert_into_tables_user_role.sql:/docker-entrypoint-initdb.d/insert_into_tables_user_role.sql  
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pgroot123
