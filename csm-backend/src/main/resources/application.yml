@@ -14,7 +14,8 @@ spring:
     password: pgroot123
     driverClassName: org.postgresql.Driver
 
-  #flyway:
+  flyway:
+    locations: classpath:db/migration,db/specific/h2
   #  locations: classpath:db/migration,db/specific/postgresql
 
   jpa:
