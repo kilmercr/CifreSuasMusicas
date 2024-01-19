@@ -1,17 +1,22 @@
 package br.com.cifresuasmusicas.config;
 
 import br.com.cifresuasmusicas.handler.LoggingAccessDeniedHandler;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -19,33 +24,48 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
-	private static final String[] AUTH_WHITE_LIST = {
-		"/**",
-		"/h2-console/**"
-	};
+    private static final String[] AUTH_WHITE_LIST = {
+        "/**"
+    };
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    private static final String[] DEV_AUTH_WHITE_LIST = {
+        "/**",
+        "/h2-console/**"
+    };
 
-		http
-			.csrf(AbstractHttpConfigurer::disable)
-			.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin))
-			.authorizeHttpRequests(auth ->
-				auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
-					.anyRequest().authenticated())
-			.exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
-			.httpBasic(withDefaults());
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            //.csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth ->
+                auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
+                    .anyRequest().authenticated())
+            .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+            .httpBasic(withDefaults());
+        return http.build();
+    }
 
-		return http.build();
-	}
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Profile("dev")
+    public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .securityMatcher(PathRequest.toH2Console())
+            .authorizeHttpRequests(auth -> auth.requestMatchers(DEV_AUTH_WHITE_LIST).permitAll())
+            .csrf(AbstractHttpConfigurer::disable)
+            .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+            .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+            .httpBasic(withDefaults());
+        return http.build();
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public AccessDeniedHandler accessDeniedHandler() {
-		return new LoggingAccessDeniedHandler();
-	}
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new LoggingAccessDeniedHandler();
+    }
 }
