@@ -9,17 +9,21 @@ spring:
   #  banner-mode: log
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/cifras
-    username: postgres
-    password: pgroot123
-    driverClassName: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/cifras
+#    username: postgres
+#    password: pgroot123
+#    driverClassName: org.postgresql.Driver
+    url: jdbc:h2:mem:cifras;MODE=MySQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: h2user
+    password: h2pass
+    driverClassName: org.h2.Driver
 
   flyway:
-    locations: classpath:db/migration,db/specific/h2
   #  locations: classpath:db/migration,db/specific/postgresql
+    locations: classpath:db/migration,db/specific/h2
 
   jpa:
-    #open-in-view: false
+  #  open-in-view: false
     show-sql: false
     generate-ddl: false
     database: postgresql
