@@ -12,17 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    public List<UserModel> findAll() {
-        return userRepository.findAll();
-    }
+	public List<UserModel> findAll() {
+		return userRepository.findAll();
+	}
 
-    public Optional<UserModel> findById(Long id) {
-        return userRepository.findById(id);
-    }
+	public Optional<UserModel> findById(Long id) {
+		return userRepository.findById(id);
+	}
 
-    public Optional<UserModel> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+	public Optional<UserModel> findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	public Optional<UserModel> findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 }
