@@ -3,15 +3,16 @@ package br.com.cifresuasmusicas.config;
 import br.com.cifresuasmusicas.handler.LoggingAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -28,11 +29,12 @@ public class WebSecurityConfig {
 
 		http
 			.csrf(AbstractHttpConfigurer::disable)
-			.exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+			.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin))
 			.authorizeHttpRequests(auth ->
 				auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
 					.anyRequest().authenticated())
-			.httpBasic(Customizer.withDefaults());
+			.exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+			.httpBasic(withDefaults());
 
 		return http.build();
 	}
