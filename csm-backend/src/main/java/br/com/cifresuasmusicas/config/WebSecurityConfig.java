@@ -19,6 +19,11 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
+	private static final String[] AUTH_WHITE_LIST = {
+		"/**",
+		"/h2-console/**"
+	};
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
