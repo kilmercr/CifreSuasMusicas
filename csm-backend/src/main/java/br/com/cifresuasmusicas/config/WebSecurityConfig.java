@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +30,7 @@ public class WebSecurityConfig {
 			.csrf(AbstractHttpConfigurer::disable)
 			.exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
 			.authorizeHttpRequests(auth ->
-				auth.requestMatchers(antMatcher("/"), antMatcher("/h2-console/**")).permitAll()
+				auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults());
 
