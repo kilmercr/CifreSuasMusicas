@@ -48,7 +48,7 @@ public class WebSecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Profile("dev")
-    public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain devFilterChain(HttpSecurity http) throws Exception {
         http
             .securityMatcher(PathRequest.toH2Console())
             .authorizeHttpRequests(auth -> auth.requestMatchers(DEV_AUTH_WHITE_LIST).permitAll())
