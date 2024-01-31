@@ -34,7 +34,8 @@ public class UserController {
         if (optUM.isPresent())
             return ResponseEntity.ok(optUM.get());
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário com o id [ " + id + " ] não encontrado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Usuário com o id [ " + id + " ] não encontrado!");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
