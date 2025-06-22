@@ -5,7 +5,7 @@ Aplicação que permite que o cliente cifre as suas próprias músicas.
 ## Tecnologias e referencias de documentação
 Este projeto utiliza as seguintes tecnologias:
 
-* [Java 17](https://www.oracle.com/br/java/)
+* [Java 21](https://www.oracle.com/br/java/)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/)
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#using.devtools)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web)
