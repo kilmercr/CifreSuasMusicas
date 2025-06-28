@@ -1,11 +1,5 @@
 package br.com.cifresuasmusicas.model;
 
-import java.io.Serial;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-
 import br.com.cifresuasmusicas.enums.SexEnum;
 import br.com.cifresuasmusicas.utils.CsmUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +10,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.Serial;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor

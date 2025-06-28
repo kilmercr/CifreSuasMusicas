@@ -7,6 +7,10 @@ import java.util.Set;
 
 public abstract class CollectionsUtils {
 
+    private CollectionsUtils() {
+        throw new IllegalStateException("Collections Utility class");
+    }
+
     public static <T> Set<T> convertListToSet(List<T> list) {
         return new HashSet<>(list);
     }

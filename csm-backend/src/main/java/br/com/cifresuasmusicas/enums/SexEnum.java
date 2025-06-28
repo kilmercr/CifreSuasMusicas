@@ -1,10 +1,10 @@
 package br.com.cifresuasmusicas.enums;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @AllArgsConstructor

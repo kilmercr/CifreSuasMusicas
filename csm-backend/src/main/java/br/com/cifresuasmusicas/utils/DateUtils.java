@@ -12,6 +12,10 @@ import java.util.Locale;
 
 public abstract class DateUtils {
 
+    private DateUtils() {
+        throw new IllegalStateException("Date Utility class");
+    }
+
     public static LocalDate convertStringToLocalDate(String date, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, new Locale("pt", "br"));
         return LocalDate.parse(date, formatter);

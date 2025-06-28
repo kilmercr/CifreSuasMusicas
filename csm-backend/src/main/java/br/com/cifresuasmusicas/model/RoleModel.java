@@ -1,11 +1,11 @@
 package br.com.cifresuasmusicas.model;
 
-import java.io.Serial;
-
 import br.com.cifresuasmusicas.enums.RolesEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.io.Serial;
 
 @Data
 @Entity

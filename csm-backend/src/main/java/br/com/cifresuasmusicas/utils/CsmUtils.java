@@ -6,6 +6,10 @@ import java.text.Normalizer;
 
 public abstract class CsmUtils {
 
+    private CsmUtils() {
+        throw new IllegalStateException("Global Utility class");
+    }
+
     public static String capitalise(String str) {
         return str.substring(0, 1).toUpperCase().concat(str.substring(1));
     }
@@ -26,9 +30,9 @@ public abstract class CsmUtils {
 
     public static String formatCPF(String cpf) {
         cpf = cpf.substring(0, 3)
-            + "." + cpf.substring(3, 6)
-            + "." + cpf.substring(6, 9)
-            + "-" + cpf.substring(9, 11);
+                + "." + cpf.substring(3, 6)
+                + "." + cpf.substring(6, 9)
+                + "-" + cpf.substring(9, 11);
         return cpf;
     }
 }

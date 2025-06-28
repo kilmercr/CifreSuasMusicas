@@ -1,8 +1,5 @@
 package br.com.cifresuasmusicas.controller;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import br.com.cifresuasmusicas.model.UserModel;
 import br.com.cifresuasmusicas.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,7 +35,7 @@ public class UserController {
             return ResponseEntity.ok(optUM.get());
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Usuário com o id [ " + id + " ] não encontrado!");
+                    .body("Usuário com o id [ " + id + " ] não encontrado!");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -46,6 +46,6 @@ public class UserController {
             return ResponseEntity.ok(optUM.get());
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Usuário com o username [ " + username + " ] não encontrado!");
+                    .body("Usuário com o username [ " + username + " ] não encontrado!");
     }
 }

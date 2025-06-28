@@ -25,23 +25,23 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
 
     private static final String[] AUTH_WHITE_LIST = {
-        "/**"
+            "/**"
     };
 
     private static final String[] DEV_AUTH_WHITE_LIST = {
-        "/**",
-        "/h2-console/**"
+            "/**",
+            "/h2-console/**"
     };
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            //.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth ->
-                auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
-                    .anyRequest().authenticated())
-            .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
-            .httpBasic(withDefaults());
+                //.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(AUTH_WHITE_LIST).permitAll()
+                                .anyRequest().authenticated())
+                .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+                .httpBasic(withDefaults());
         return http.build();
     }
 
@@ -50,12 +50,12 @@ public class WebSecurityConfig {
     @Profile("dev")
     public SecurityFilterChain devFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher(PathRequest.toH2Console())
-            .authorizeHttpRequests(auth -> auth.requestMatchers(DEV_AUTH_WHITE_LIST).permitAll())
-            .csrf(AbstractHttpConfigurer::disable)
-            .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-            .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
-            .httpBasic(withDefaults());
+                .securityMatcher(PathRequest.toH2Console())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(DEV_AUTH_WHITE_LIST).permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .exceptionHandling(except -> except.accessDeniedHandler(accessDeniedHandler()))
+                .httpBasic(withDefaults());
         return http.build();
     }
 
